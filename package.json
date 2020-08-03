@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.11.0",
+    "@types/matter-js": "^0.14.5",
+    "@types/react": "^16.9.44",
+    "@types/react-dom": "^16.9.8",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
@@ -16,6 +19,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-p5": "^1.3.6",
+    "ts-loader": "^8.0.2",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"
