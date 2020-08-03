@@ -1,0 +1,49 @@
+.flex, .flex--column {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.flex--column {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 56px auto auto;
+      grid-template-columns: 56px auto auto;
+  -ms-grid-rows: 100%;
+      grid-template-rows: 100%;
+  height: 100vh;
+  overflow: hidden;
+  font-family: Roboto;
+}
+
+.container * {
+  height: 100%;
+}
+
+#tools {
+  height: 100%;
+}
+
+#render-canvas canvas {
+  width: 100%;
+}
+
+#properties {
+  width: 200px;
+  padding-top: 8px;
+  padding-left: 20px;
+}
+
+.section-heading {
+  font-size: 1.2rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: #00000026;
+}
