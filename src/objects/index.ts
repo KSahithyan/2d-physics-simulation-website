@@ -1,3 +1,5 @@
 export { CanvasRenderer } from './CanvasRenderer';
-export { RectangleBody } from './RectangleBody';
 export { Tool } from './Tool';
+export { MBody } from './MBody';
+export { MRectangleBody } from './MRectangleBody';
+export {MCircleBody} from './MCircleBody';
