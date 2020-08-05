@@ -1,0 +1,11 @@
+@import './../../style/abstracts/atomic-styles';
+
+.input-container {
+    @extend .flex--column;
+    margin-bottom: 12px;
+}
+
+label {
+    // background-color: red;
+    margin-bottom: 4px;
+}
