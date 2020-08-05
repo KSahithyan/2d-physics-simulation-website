@@ -1,18 +1,23 @@
-.flex, .flex--column {
+.flex, .flex--column, #tools-button-container, #tools-button-container button, #control-buttons-container, #control-buttons-container .control-button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.flex--column {
+.flex--column, #tools-button-container {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
 }
 
-.button, #run-button {
+.button, #tools-button-container button, #control-buttons-container .control-button {
   cursor: pointer;
+  border: none;
+}
+
+.icon {
+  width: 1.8rem;
 }
 
 .container {
@@ -32,8 +37,26 @@
   height: 100%;
 }
 
-#tools {
+#tools-button-container {
   height: 100%;
+}
+
+#tools-button-container button {
+  background-color: transparent;
+  min-height: 40px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  -webkit-transition: .2s;
+  transition: .2s;
+}
+
+#tools-button-container button:hover {
+  background-color: #00000034;
 }
 
 .render-canvas {
@@ -44,11 +67,18 @@
   background-color: #dddddd;
 }
 
-#properties {
+#side-bar {
   width: 360px;
-  padding: 8px 12px;
+  padding: 8px 12px 8px 16px;
   -ms-grid-column: 3;
   grid-column: 3;
+  height: 100vh;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 100%;
+      grid-template-columns: 100%;
+  -ms-grid-rows: 40px auto;
+      grid-template-rows: 40px auto;
 }
 
 .section-heading {
@@ -56,14 +86,48 @@
   letter-spacing: 4px;
   text-transform: uppercase;
   color: #00000034;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
-#run-button {
+#control-buttons-container {
+  gap: 4px;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#control-buttons-container .control-button {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 100%;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 1.1rem;
-  background-color: #42ff71;
+  background: transparent;
   height: 40px;
-  border: none;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+#properties {
+  overflow: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+#properties div {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+#properties div:last-child {
+  margin-bottom: 100px;
 }

@@ -15,8 +15,24 @@
     }
 }
 
-#tools {
+#tools-button-container {
+    @extend .flex--column;
+    // background-color: blue;
     height: 100%;
+
+    button {
+        @extend .flex, .button;
+        background-color: transparent;
+        min-height: 40px;
+        justify-content: center;
+        width: 100%;
+        height: fit-content;
+        transition: .2s;
+
+        &:hover {
+            background-color: #00000034;
+        }
+    }
 }
 
 .render-canvas {
@@ -26,27 +42,55 @@
     background-color: rgb(221, 221, 221);
 }
 
-#properties {
+#side-bar {
     width: 360px;
-    padding: 8px 12px;
+    padding: 8px 12px 8px 16px;
     grid-column: 3;
-    // background-color: rgb(223, 223, 223);
+    height: 100vh;
+    // background-color: blue;
+    // overflow: auto;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 40px auto;
 }
 
 .section-heading {
     font-size: 1.1rem;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: #00000034
+    color: #00000034;
+    height: fit-content;
 }
 
-#run-button {
-    @extend .button;
-    width: 100%;
-    font-weight: bold;
-    text-transform: uppercase;
-    font-size: 1.1rem;
-    background-color: rgb(66, 255, 113);
-    height: 40px;
-    border:none;
+#control-buttons-container {
+    @extend .flex;
+    gap: 4px;
+    height: fit-content;
+    justify-content: center;
+
+    .control-button {
+        @extend .button, .flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 100%;
+        // background-color: rgb(243, 192, 192);
+        background: transparent;
+        height: 40px;
+        width: fit-content;
+    }
+}
+
+#properties {
+    overflow: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    
+    div {
+        height: fit-content;
+    }
+    
+    div:last-child {
+        margin-bottom: 100px;
+    }
 }

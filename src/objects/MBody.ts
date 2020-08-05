@@ -1,8 +1,8 @@
-import { IBodyDefinition } from 'matter-js';
+import { Body } from 'matter-js';
 
 export class MBody {
     type: 'circle' | 'rectangle';
-    body: IBodyDefinition;
+    body: Body;
     
     constructor(type: 'circle' | 'rectangle') {
         this.type = type;
