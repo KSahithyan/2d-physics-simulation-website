@@ -1,9 +1,10 @@
-import { Engine, World, Body } from 'matter-js';
-import React, { Component } from 'react';
+import { Engine, World, Body, Render } from 'matter-js';
+import React, { Component, createRef } from 'react';
 import ReactDOM from "react-dom";
 import { CanvasRenderer, MCircleBody, MBody, InputComponent } from "./objects/index";
 import { ControlButton, ToolButton } from "./types";
 import { capitalize } from './utils';
+import { PropertiesContainer } from './components/PropertiesContainer';
 const css = require('./style/main.css');
 
 interface StateTypes {
@@ -20,13 +21,10 @@ const ICON_PATH = './src/icons/'
 class App extends Component<any, StateTypes> {
     bodies: any[];
     renderer: any;
-
     constructor(props: any) {
         super(props);
         this.runEngine = this.runEngine.bind(this);
         this.pauseEngine = this.pauseEngine.bind(this);
-        this.extractProperties = this.extractProperties.bind(this);
-        this.getChange = this.getChange.bind(this);
         
         this.state = {
             engine: Engine.create(),
@@ -40,8 +38,7 @@ class App extends Component<any, StateTypes> {
             ],
             controlButtons: [
                 { icon: 'play', onClickListener: this.runEngine },
-                { icon: 'pause', onClickListener: this.pauseEngine },
-                { icon: 'refresh', onClickListener: () => {console.log('ccc')} }
+                { icon: 'pause', onClickListener: this.pauseEngine }
             ]
         }
 
@@ -52,32 +49,6 @@ class App extends Component<any, StateTypes> {
         Body.setVelocity(this.state.bodies[1].body, {x:0,y:-10})
     }
 
-    // TODO Move to PropertiesContainer component
-    extractProperties(obj) {
-        let entries = Object.entries(obj);
-        let n = []
-        for (let [key, val] of entries) {
-            //if (val == null) {return n;}
-          if (typeof val == 'string') { n.push([key,val]) }
-          else if (val instanceof Array) {
-             n.push([key, val.length]);
-          }
-          else if (typeof val == 'number') {
-            n.push([key,val]);
-            // console.log('N', val);
-          }
-          else if (typeof val == 'object') {
-            if (val != null) {
-                n.push([key, this.extractProperties(val)]);
-                // console.log(val, this.extractProperties(val), key);
-            }
-          }
-        }
-    
-        // console.log(r);
-        return n;
-      }
-
     runEngine() {
         this.setState(state => ({ isPaused: false }));
     }
@@ -86,13 +57,9 @@ class App extends Component<any, StateTypes> {
         this.setState(state => ({ isPaused: true }))
     }
 
-    getChange(...a) {
-        console.log('change', a);
-        console.log(a[0].target.value);
-    }
-
     componentDidMount() {
-        this.setState(state => ({ selectedObj: state.engine.world }))
+        this.setState(state => ({ selectedObj: state.bodies[0].body }))
+        // this.setState(state => ({ selectedObj: state.engine.world }))
     }
     
     render() {
@@ -117,16 +84,8 @@ class App extends Component<any, StateTypes> {
                         }
                     </div>
                     <h2 className="section-heading">Properties</h2>
-                    
-                    {/* TODO Move to PropertiesContainer component */}
-                    <div id="properties">
-                        {this.extractProperties(selectedObj).map(entry => {
-                            return (
-                                entry[1] instanceof Array ?
-                                entry[1].map(a => <InputComponent key={a[0]} label={a[0]} value={a[1]} onChangeListener={this.getChange}></InputComponent>) : <InputComponent key={entry[0]} label={capitalize(entry[0])} value={entry[1]} onChangeListener={this.getChange}></InputComponent>
-                            )
-                        })}
-                    </div>
+
+                    <PropertiesContainer selectedObj={selectedObj} />
                 </div>
             </div>
         )

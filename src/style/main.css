@@ -23,9 +23,9 @@
 .container {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: 56px auto min-content;
-      grid-template-columns: 56px auto -webkit-min-content;
-      grid-template-columns: 56px auto min-content;
+  -ms-grid-columns: 40px auto min-content;
+      grid-template-columns: 40px auto -webkit-min-content;
+      grid-template-columns: 40px auto min-content;
   -ms-grid-rows: 100%;
       grid-template-rows: 100%;
   height: 100vh;
@@ -59,7 +59,7 @@
   background-color: #00000034;
 }
 
-.render-canvas {
+#render-canvas {
   width: 100%;
   height: 100%;
   -ms-grid-column: 2;
@@ -126,8 +126,4 @@
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-}
-
-#properties div:last-child {
-  margin-bottom: 100px;
 }

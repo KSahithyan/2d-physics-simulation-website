@@ -19,6 +19,7 @@ export const InputComponent = (props: PropTypes) => {
                 type={props.type || 'text'}
                 id={id} placeholder={props.placeholder || ''}
                 value={props.value}
+                disabled={true}
                 onChange={e => props.onChangeListener(e)} ></input>
         </div>
     )
