@@ -34,12 +34,12 @@ class App extends Component<any, StateTypes> {
             engine: Engine.create(),
             isPaused: true,
             bodies: [
-                new MCircleBody(600,100, 20, {restitution: 1}),
-                new MCircleBody(600,300,40, {restitution: 1}),
-                new MRectangleBody(-10, 750, 1400, 30, {isStatic: true})
+                new MCircleBody(650, 100, 20, { restitution: 1, friction: 0 }),
+                new MCircleBody(650, 340, 40, { restitution: 1, friction: 0 }),
+                new MRectangleBody(650, 770, 1320, 20, { isStatic: true, friction: 0 })
             ],
             toolButtons: [
-                { icon: 'add', onClickListener: () => {console.log('aa')} }
+                { icon: 'add', onClickListener: () => { console.log('aa') } }
             ],
             controlButtons: [
                 { icon: 'play', onClickListener: this.runEngine },
@@ -47,12 +47,12 @@ class App extends Component<any, StateTypes> {
             ]
         }
 
-        for (let body of this.state.bodies) {   
+        for (let body of this.state.bodies) {
             World.add(this.state.engine.world, body.body);
         }
         console.log(this.state.engine.world);
 
-        Body.setVelocity(this.state.bodies[1].body, {x:0,y:-10})
+        Body.setVelocity(this.state.bodies[1].body, { x: 0, y: -10 })
     }
 
     runEngine() {
@@ -84,9 +84,9 @@ class App extends Component<any, StateTypes> {
             this.forceUpdate();
         }, 10)
     }
-    
+
     render() {
-        let {engine, controlButtons, toolButtons, selectedObj} = this.state;
+        let { engine, controlButtons, toolButtons, selectedObj } = this.state;
         if (selectedObj == undefined) selectedObj = {}
         return (
             <div className="container">
@@ -97,7 +97,7 @@ class App extends Component<any, StateTypes> {
                         </button>))
                     }
                 </div>
-                <CanvasRenderer getBodies={this.getBodies} getSelectedObj={this.getSelectedObj} id="render-canvas-container" timing={10} engine={engine} isPaused={this.isPaused} />
+                <CanvasRenderer getBodies={this.getBodies} getSelectedObj={this.getSelectedObj} timing={10} engine={engine} isPaused={this.isPaused} />
                 <div id="side-bar">
                     <div id="control-buttons-container">
                         {controlButtons.map(controlButton =>
@@ -112,6 +112,6 @@ class App extends Component<any, StateTypes> {
                 </div>
             </div>
         )
-    }  
-} 
+    }
+}
 ReactDOM.render(<App />, document.getElementById('root'))

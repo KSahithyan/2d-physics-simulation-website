@@ -1,11 +1,8 @@
-import React, { Component, createRef } from 'react';
 import { Engine } from 'matter-js';
-import { MCircleBody, MRectangleBody, MBody } from './../objects/index';
-
-const { PI } = Math;
+import React, { Component, createRef } from 'react';
+import { MBody } from './../objects/index';
 
 interface PropTypes {
-    id: string,
     timing: number,
     engine: Engine,
     getBodies: Function,
@@ -44,7 +41,7 @@ export class CanvasRenderer extends Component<PropTypes> {
     }
     
     componentDidMount() {
-        this.canvasRef.current.addEventListener('click', this.onClick);
+        this.canvasRef.current.addEventListener('mousemove', this.onClick);
         this.ctx = this.canvasRef.current.getContext('2d');
     }
     
@@ -54,7 +51,7 @@ export class CanvasRenderer extends Component<PropTypes> {
     
     render() {
         return (
-            <div ref={this.parentRef}>
+            <div ref={this.parentRef} className="render-canvas-container">
                 <canvas className="render-canvas" ref={this.canvasRef}></canvas>
             </div>
         )

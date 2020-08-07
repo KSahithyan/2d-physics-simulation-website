@@ -1,5 +1,6 @@
 import { MBody } from "./MBody";
 import { Bodies, IBodyDefinition } from "matter-js";
+import { isInRange, distance } from "../utils";
 const { PI } = Math
 
 export class MCircleBody extends MBody {
@@ -10,7 +11,7 @@ export class MCircleBody extends MBody {
         this.r = r;
     }
 
-    show = (ctx: CanvasRenderingContext2D, id: number) => {
+    show(ctx: CanvasRenderingContext2D, id: number) {
         // let newBody = body as MCircleBody;
         let {x,y} = this.body.position
         ctx.beginPath();

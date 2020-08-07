@@ -9,3 +9,8 @@ export interface ToolButton {
     icon: string,
     onClickListener: (event: MouseEvent<HTMLElement>) => void
 }
+
+export interface Point {
+    x: number,
+    y: number
+}

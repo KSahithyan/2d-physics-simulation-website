@@ -35,11 +35,15 @@
     }
 }
 
-.render-canvas {
-    width: 100%;
-    height: 100%;
-    grid-column: 2;
-    background-color: rgb(221, 221, 221);
+.render-canvas-container {
+    margin: auto;
+    .render-canvas {
+        max-width: 1300px;
+        width: 100%;
+        height: 100%;
+        grid-column: 2;
+        background-color: rgb(221, 221, 221);
+    }
 }
 
 #side-bar {
