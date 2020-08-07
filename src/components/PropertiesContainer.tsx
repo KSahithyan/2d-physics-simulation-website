@@ -23,18 +23,10 @@ interface PropTypes {
     timing: number,
     isPaused: Function
 }
-interface StateTypes {
-    render: boolean
-}
-export class PropertiesContainer extends React.Component<PropTypes, StateTypes> {
-    runner;
-
+export class PropertiesContainer extends React.Component<PropTypes> {
     constructor(props: PropTypes) {
         super(props);
         console.log(props);
-        this.state = {
-            render: true
-        }
     }
 
     // update properties while simulation running
@@ -64,26 +56,8 @@ export class PropertiesContainer extends React.Component<PropTypes, StateTypes> 
         console.log(a[0].target.value);
     }
 
-    renderProperties() {
-        this.setState(state => ({ render: !state.render }))
-    }
-
-    componentDidUpdate() {
-        this.runner = setInterval(() => {
-            if (!this.props.isPaused()) {
-                this.renderProperties();
-            }
-        }, this.props.timing);
-    }
-
-    componentDidMount() {
-        this.renderProperties();
-    }
-
-
     render() {
         let properties = this.extractProperties(this.props.getSelectedObj()) || [];
-        console.log('prop-r', properties);
         
         return (
             <div id="properties">

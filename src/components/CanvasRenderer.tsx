@@ -9,6 +9,7 @@ interface PropTypes {
     timing: number,
     engine: Engine,
     getBodies: Function,
+    getSelectedObj: Function,
     isPaused: Function
 }
 
@@ -16,7 +17,6 @@ export class CanvasRenderer extends Component<PropTypes> {
     private canvasRef = createRef<HTMLCanvasElement>()
     private parentRef = createRef<HTMLDivElement>()
     ctx: CanvasRenderingContext2D;
-    runner;
 
     constructor(props: PropTypes) {
         super(props);
@@ -25,25 +25,16 @@ export class CanvasRenderer extends Component<PropTypes> {
     }
     
     renderCanvas() {
+        if (!this.props.isPaused()) {
+            Engine.update(this.props.engine);
+        }
         let { clientHeight, clientWidth } = this.parentRef.current
         this.canvasRef.current.width = clientWidth;
         this.canvasRef.current.height = clientHeight;
         let bodies = this.props.getBodies();
-        for (let body of bodies) {            
-            let {x,y} = body.body.position;
-            
-            if (body.type == 'rectangle') {
-                let newBody = body as MRectangleBody;
-                this.ctx.fillRect(x,y,newBody.w, newBody.h);
-            }
-            if (body.type == 'circle') {
-                let newBody = body as MCircleBody;
-                this.ctx.beginPath();
-                this.ctx.fillStyle = '#000000';
-                this.ctx.arc(x,y,newBody.r,0,2 * PI);
-                this.ctx.fill();
-                this.ctx.stroke();
-            }
+        for (let body of bodies) {
+            // console.log(this.props.getSelectedObj().id);
+            (body as MBody).show(this.ctx, this.props.getSelectedObj().id);
         }
     }
     
@@ -52,25 +43,16 @@ export class CanvasRenderer extends Component<PropTypes> {
         // TODO find a way to select bodies in this canvas
     }
     
-    componentDidUpdate() {
-        this.runner = setInterval(() => {
-            if (!this.props.isPaused()) {
-                this.renderCanvas()
-                Engine.update(this.props.engine)
-            }
-        }, this.props.timing);
-    }
-    
     componentDidMount() {
         this.canvasRef.current.addEventListener('click', this.onClick);
         this.ctx = this.canvasRef.current.getContext('2d');
+    }
+    
+    componentDidUpdate() {
         this.renderCanvas()
     }
     
     render() {
-        if (this.runner) {
-            window.clearInterval(this.runner);
-        }
         return (
             <div ref={this.parentRef}>
                 <canvas className="render-canvas" ref={this.canvasRef}></canvas>

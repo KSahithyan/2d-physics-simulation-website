@@ -10,4 +10,10 @@ export class MRectangleBody extends MBody {
         this.w = w;
         this.h = h;
     }
+
+    show = (ctx: CanvasRenderingContext2D, id: number) => {
+        let {x,y} = this.body.position;
+        ctx.fillStyle = id == this.body.id ? "#0000FF" : "#000000";
+        ctx.fillRect(x,y,this.w, this.h);
+    }
 }

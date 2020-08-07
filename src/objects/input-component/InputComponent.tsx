@@ -12,7 +12,6 @@ interface PropTypes {
 
 export const InputComponent = (props: PropTypes) => {
     let id = props.id || props.label;
-    console.log(id);
     return (
         <div className="input-container">
             {props.label ? <label htmlFor={id}>{props.label}</label> : null}

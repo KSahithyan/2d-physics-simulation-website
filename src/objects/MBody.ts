@@ -7,4 +7,7 @@ export class MBody {
     constructor(type: 'circle' | 'rectangle') {
         this.type = type;
     }
+    show(ctx: CanvasRenderingContext2D, id: number) {
+
+    }
 }
