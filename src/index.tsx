@@ -1,15 +1,16 @@
 import { Engine, World, Body, Render } from 'matter-js';
 import React, { Component, createRef } from 'react';
 import ReactDOM from "react-dom";
-import { CanvasRenderer, MCircleBody, MBody, InputComponent } from "./objects/index";
+import { MCircleBody, MBody, InputComponent } from "./objects/index";
 import { ControlButton, ToolButton } from "./types";
 import { capitalize } from './utils';
-import { PropertiesContainer } from './components/PropertiesContainer';
+import { PropertiesContainer, CanvasRenderer } from './components/index';
+
 const css = require('./style/main.css');
 
 interface StateTypes {
     engine: Engine,
-    selectedObj?: any,
+    selectedObj?: Object,
     bodies: MBody[],
     isPaused: boolean,
     controlButtons: ControlButton[],
@@ -25,7 +26,10 @@ class App extends Component<any, StateTypes> {
         super(props);
         this.runEngine = this.runEngine.bind(this);
         this.pauseEngine = this.pauseEngine.bind(this);
-        
+        this.getBodies = this.getBodies.bind(this);
+        this.getSelectedObj = this.getSelectedObj.bind(this);
+        this.isPaused = this.isPaused.bind(this);
+
         this.state = {
             engine: Engine.create(),
             isPaused: true,
@@ -57,13 +61,26 @@ class App extends Component<any, StateTypes> {
         this.setState(state => ({ isPaused: true }))
     }
 
+    isPaused = () => this.state.isPaused
+    getBodies = () => this.state.bodies
+    getSelectedObj = () => {
+        console.log(this.state.selectedObj);
+        if (typeof this.state.selectedObj != 'object') return;
+        let dupObj: Object = Object.assign({}, this.state.selectedObj);
+        console.log('s', this.state.selectedObj, dupObj)
+        if (!dupObj) return {};
+        if (dupObj.hasOwnProperty('parent')) delete dupObj['parent'];
+
+        return dupObj;
+    }
+
     componentDidMount() {
         this.setState(state => ({ selectedObj: state.bodies[0].body }))
         // this.setState(state => ({ selectedObj: state.engine.world }))
     }
     
     render() {
-        let {engine, bodies, isPaused, controlButtons, toolButtons, selectedObj} = this.state;
+        let {engine, controlButtons, toolButtons, selectedObj} = this.state;
         if (selectedObj == undefined) selectedObj = {}
         return (
             <div className="container">
@@ -74,7 +91,7 @@ class App extends Component<any, StateTypes> {
                         </button>))
                     }
                 </div>
-                <CanvasRenderer bodies={bodies} id="render-canvas" timing={10} engine={engine} isPaused={isPaused} />
+                <CanvasRenderer getBodies={this.getBodies} id="render-canvas-container" timing={10} engine={engine} isPaused={this.isPaused} />
                 <div id="side-bar">
                     <div id="control-buttons-container">
                         {controlButtons.map(controlButton =>
@@ -85,7 +102,7 @@ class App extends Component<any, StateTypes> {
                     </div>
                     <h2 className="section-heading">Properties</h2>
 
-                    <PropertiesContainer selectedObj={selectedObj} />
+                    <PropertiesContainer getSelectedObj={this.getSelectedObj} timing={10} isPaused={this.isPaused} />
                 </div>
             </div>
         )

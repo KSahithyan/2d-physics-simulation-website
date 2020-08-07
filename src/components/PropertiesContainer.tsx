@@ -2,7 +2,6 @@ import React from 'react';
 import { InputComponent } from './../objects/index'
 import { capitalize } from './../utils';
 
-
 interface PropertiesGroupPropTypes {
     entry: [string, any[]]
 }
@@ -20,12 +19,27 @@ const PropertiesGroup = (props: PropertiesGroupPropTypes) => {
 }
 
 interface PropTypes {
-    selectedObj: Object
+    getSelectedObj: Function,
+    timing: number,
+    isPaused: Function
 }
-export const PropertiesContainer = (props: PropTypes) => {
+interface StateTypes {
+    render: boolean
+}
+export class PropertiesContainer extends React.Component<PropTypes, StateTypes> {
+    runner;
+
+    constructor(props: PropTypes) {
+        super(props);
+        console.log(props);
+        this.state = {
+            render: true
+        }
+    }
 
     // update properties while simulation running
-    this.extractProperties = (obj: Object) => {
+    extractProperties = (obj?: Object) => {
+        if (obj == null) return;
         if (obj.hasOwnProperty('parent')) {delete obj['parent']}
         let entries = Object.entries(obj);
         let n = []
@@ -45,21 +59,41 @@ export const PropertiesContainer = (props: PropTypes) => {
         }
         return n;
     }
-    this.getChange = (...a) => {
+    getChange = (...a) => {
         console.log('change', a);
         console.log(a[0].target.value);
     }
 
-    let properties = this.extractProperties(props.selectedObj);
+    renderProperties() {
+        this.setState(state => ({ render: !state.render }))
+    }
 
-    return (
-        <div id="properties">
+    componentDidUpdate() {
+        this.runner = setInterval(() => {
+            if (!this.props.isPaused()) {
+                this.renderProperties();
+            }
+        }, this.props.timing);
+    }
+
+    componentDidMount() {
+        this.renderProperties();
+    }
+
+
+    render() {
+        let properties = this.extractProperties(this.props.getSelectedObj()) || [];
+        console.log('prop-r', properties);
+        
+        return (
+            <div id="properties">
             {properties.map(entry => {
-            return (
-                entry[1] instanceof Array ?
-                <PropertiesGroup key={entry[0]} entry={entry} /> :
-                <InputComponent key={entry[0]} label={capitalize(entry[0])} value={entry[1]} onChangeListener={this.getChange} />)
-            })}
-        </div>
-    )
+                return (
+                    entry[1] instanceof Array ?
+                    <PropertiesGroup key={entry[0]} entry={entry} /> :
+                    <InputComponent key={entry[0]} label={capitalize(entry[0])} value={entry[1]} onChangeListener={this.getChange} />)
+                })}
+            </div>
+        )
+    }
 }

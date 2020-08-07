@@ -1,17 +1,15 @@
 import React, { Component, createRef } from 'react';
 import { Engine } from 'matter-js';
-import { MBody } from './index';
-import { MRectangleBody } from './index';
-import { MCircleBody } from './MCircleBody';
+import { MCircleBody, MRectangleBody, MBody } from './../objects/index';
 
 const { PI } = Math;
 
 interface PropTypes {
-    bodies: MBody[],
     id: string,
     timing: number,
-    isPaused: boolean,
-    engine: Engine
+    engine: Engine,
+    getBodies: Function,
+    isPaused: Function
 }
 
 export class CanvasRenderer extends Component<PropTypes> {
@@ -23,13 +21,15 @@ export class CanvasRenderer extends Component<PropTypes> {
     constructor(props: PropTypes) {
         super(props);
         this.onClick = this.onClick.bind(this);
+        console.log(this.props);
     }
     
     renderCanvas() {
         let { clientHeight, clientWidth } = this.parentRef.current
         this.canvasRef.current.width = clientWidth;
         this.canvasRef.current.height = clientHeight;
-        for (let body of this.props.bodies) {            
+        let bodies = this.props.getBodies();
+        for (let body of bodies) {            
             let {x,y} = body.body.position;
             
             if (body.type == 'rectangle') {
@@ -54,7 +54,7 @@ export class CanvasRenderer extends Component<PropTypes> {
     
     componentDidUpdate() {
         this.runner = setInterval(() => {
-            if (!this.props.isPaused) {
+            if (!this.props.isPaused()) {
                 this.renderCanvas()
                 Engine.update(this.props.engine)
             }
