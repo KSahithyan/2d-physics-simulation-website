@@ -1,10 +1,9 @@
-import { Engine, World, Body, Render } from 'matter-js';
-import React, { Component, createRef } from 'react';
+import { Body, Engine, World } from 'matter-js';
+import React, { Component } from 'react';
 import ReactDOM from "react-dom";
-import { MCircleBody, MBody, InputComponent, MRectangleBody } from "./objects/index";
+import { CanvasRenderer, PropertiesContainer } from './components/index';
+import { MBody, MCircleBody, MRectangleBody } from "./objects/index";
 import { ControlButton, ToolButton } from "./types";
-import { capitalize } from './utils';
-import { PropertiesContainer, CanvasRenderer } from './components/index';
 
 const css = require('./style/main.css');
 
@@ -24,12 +23,12 @@ class App extends Component<any, StateTypes> {
     renderer: any;
     constructor(props: any) {
         super(props);
-        this.runEngine = this.runEngine.bind(this);
-        this.pauseEngine = this.pauseEngine.bind(this);
         this.getBodies = this.getBodies.bind(this);
         this.getSelectedObj = this.getSelectedObj.bind(this);
         this.isPaused = this.isPaused.bind(this);
 
+        let runEngine = this.setPaused.bind(this, false);
+        let pauseEngine = this.setPaused.bind(this, true);
         this.state = {
             engine: Engine.create(),
             isPaused: true,
@@ -42,8 +41,8 @@ class App extends Component<any, StateTypes> {
                 { icon: 'add', onClickListener: () => { console.log('aa') } }
             ],
             controlButtons: [
-                { icon: 'play', onClickListener: this.runEngine },
-                { icon: 'pause', onClickListener: this.pauseEngine }
+                { icon: 'play', onClickListener: runEngine },
+                { icon: 'pause', onClickListener: pauseEngine }
             ]
         }
 
@@ -54,16 +53,9 @@ class App extends Component<any, StateTypes> {
 
         Body.setVelocity(this.state.bodies[1].body, { x: 0, y: -10 })
     }
-
-    runEngine() {
-        console.log('s');
-        this.setState(state => ({ isPaused: false }));
+    setPaused = (pausedState: boolean) => {
+        this.setState({ isPaused: pausedState });
     }
-
-    pauseEngine() {
-        this.setState(state => ({ isPaused: true }))
-    }
-
     isPaused = () => this.state.isPaused
     getBodies = () => this.state.bodies
     getSelectedObj = () => {

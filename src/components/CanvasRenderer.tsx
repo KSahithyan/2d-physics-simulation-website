@@ -41,7 +41,7 @@ export class CanvasRenderer extends Component<PropTypes> {
     }
     
     componentDidMount() {
-        this.canvasRef.current.addEventListener('mousemove', this.onClick);
+        this.canvasRef.current.addEventListener('click', this.onClick);
         this.ctx = this.canvasRef.current.getContext('2d');
     }
     
