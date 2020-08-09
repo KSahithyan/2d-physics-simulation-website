@@ -6,7 +6,11 @@
         "target": "ES6",
         "jsx": "react",
         "moduleResolution": "classic",
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "lib": [
+            "es6",
+            "DOM"
+        ]
     },
     "include": ["src/**/*"]
 }
