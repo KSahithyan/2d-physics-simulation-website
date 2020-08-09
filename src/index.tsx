@@ -1,10 +1,9 @@
-import { Engine, World, Body, Render } from 'matter-js';
-import React, { Component, createRef } from 'react';
+import { Body, Engine, World } from 'matter-js';
+import React, { Component } from 'react';
 import ReactDOM from "react-dom";
-import { MCircleBody, MBody, InputComponent, MRectangleBody } from "./objects/index";
+import { CanvasRenderer, PropertiesContainer } from './components/index';
+import { MBody, MCircleBody, MRectangleBody } from "./objects/index";
 import { ControlButton, ToolButton } from "./types";
-import { capitalize } from './utils';
-import { PropertiesContainer, CanvasRenderer } from './components/index';
 
 const css = require('./style/main.css');
 

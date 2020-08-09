@@ -20,4 +20,8 @@ export class MCircleBody extends MBody {
         ctx.fill();
         ctx.stroke();
     }
+
+    isClickedOn(x,y): boolean {
+        return false;
+    }
 }

@@ -1,6 +1,6 @@
 import { Engine } from 'matter-js';
 import React, { Component, createRef } from 'react';
-import { MBody } from './../objects/index';
+import { MBody, MRectangleBody } from './../objects/index';
 
 interface PropTypes {
     timing: number,
@@ -38,6 +38,21 @@ export class CanvasRenderer extends Component<PropTypes> {
     onClick(event: MouseEvent) {
         console.log(event);
         // TODO find a way to select bodies in this canvas
+        for (let body of this.props.getBodies()) {
+            let b = body as MBody
+            let r = b.isClickedOn(event.x, event.y);
+            let pos = body.body.position
+            let mouse = {x: event.x,y:event.y};
+            let addDetails = new Object()
+            if (b.type == 'rectangle') {
+                let rectbody = body as MRectangleBody
+                //@ts-ignore
+                addDetails.w = rectbody.w
+                //@ts-ignore
+                addDetails.h = rectbody.h
+            }
+            // console.log(pos, mouse, addDetails, r);
+        }
     }
     
     componentDidMount() {

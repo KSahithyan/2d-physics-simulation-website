@@ -20,4 +20,16 @@ export class MRectangleBody extends MBody {
         // ctx.fillRect(x,y,this.w, this.h);
         ctx.fillRect(x-this.w/2,y - this.h/2,this.w, this.h);
     }
+
+    isClickedOn(x: number,y: number):boolean {
+        let pos = this.body.position;
+
+        let xRange = [pos.x - this.w/2, pos.x + this.w/2];
+        let yRange = [pos.y - this.h/2, pos.y + this.h/2];
+
+        let inXRange = isInRange(x, xRange[0], xRange[1]);
+        let inYRange = isInRange(y, yRange[0], yRange[1]);
+
+        return inXRange && inYRange;
+    }
 }
