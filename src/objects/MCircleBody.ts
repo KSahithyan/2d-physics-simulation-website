@@ -15,7 +15,7 @@ export class MCircleBody extends MBody {
         // let newBody = body as MCircleBody;
         let {x,y} = this.body.position
         ctx.beginPath();
-        ctx.fillStyle = id == this.body.id ? "#0000FF" : '#000000';
+        ctx.fillStyle = id == this.body.id ? "#0000FF" : this.fillColor.toHexCode();
         ctx.arc(x,y,this.r,0,2 * PI);
         ctx.fill();
         ctx.stroke();

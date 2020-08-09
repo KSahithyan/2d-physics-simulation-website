@@ -10,6 +10,7 @@ export interface ToolButton {
     onClickListener: (event: MouseEvent<HTMLElement>) => void
 }
 
+// RENDER
 export interface Point {
     x: number,
     y: number
