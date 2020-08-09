@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputComponent } from './../objects/index'
+import { InputComponent } from './../components/index'
 import { capitalize } from './../utils';
 
 interface PropertiesGroupPropTypes {
