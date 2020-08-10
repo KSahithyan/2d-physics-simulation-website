@@ -1,12 +1,14 @@
 import { Engine } from 'matter-js';
 import React, { Component, createRef } from 'react';
 import { MBody, MRectangleBody } from './../objects/index';
+import { Point } from '../types';
 
 interface PropTypes {
     timing: number,
     engine: Engine,
     getBodies: Function,
     getSelectedObj: Function,
+    setSelectedObj: Function,
     isPaused: Function
 }
 
@@ -14,6 +16,10 @@ export class CanvasRenderer extends Component<PropTypes> {
     private canvasRef = createRef<HTMLCanvasElement>()
     private parentRef = createRef<HTMLDivElement>()
     ctx: CanvasRenderingContext2D;
+    mouse: Point = {
+        x: 0,
+        y: 0
+    };
 
     constructor(props: PropTypes) {
         super(props);
@@ -36,27 +42,26 @@ export class CanvasRenderer extends Component<PropTypes> {
     }
     
     onClick(event: MouseEvent) {
-        console.log(event);
-        // TODO find a way to select bodies in this canvas
+        // store mouse position;
+        // @ts-ignore
+        let rect = event.target.getBoundingClientRect();
+        this.mouse = {
+            x: event.clientX - rect.left,
+            y: event.clientY - rect.top
+        }
+        
         for (let body of this.props.getBodies()) {
             let b = body as MBody
-            let r = b.isClickedOn(event.x, event.y);
-            let pos = body.body.position
-            let mouse = {x: event.x,y:event.y};
-            let addDetails = new Object()
-            if (b.type == 'rectangle') {
-                let rectbody = body as MRectangleBody
-                //@ts-ignore
-                addDetails.w = rectbody.w
-                //@ts-ignore
-                addDetails.h = rectbody.h
+            let r = b.isClickedOn(this.mouse.x, this.mouse.y);
+
+            if (r) {
+                this.props.setSelectedObj(body.body);
             }
-            // console.log(pos, mouse, addDetails, r);
         }
     }
     
     componentDidMount() {
-        this.canvasRef.current.addEventListener('mousemove', this.onClick);
+        this.canvasRef.current.addEventListener('click', this.onClick);
         this.ctx = this.canvasRef.current.getContext('2d');
     }
     

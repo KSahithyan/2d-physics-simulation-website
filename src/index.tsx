@@ -28,6 +28,7 @@ class App extends Component<any, StateTypes> {
         this.getBodies = this.getBodies.bind(this);
         this.getSelectedObj = this.getSelectedObj.bind(this);
         this.isPaused = this.isPaused.bind(this);
+        this.setSelectedObj = this.setSelectedObj.bind(this);
 
         this.state = {
             engine: Engine.create(),
@@ -35,7 +36,7 @@ class App extends Component<any, StateTypes> {
             bodies: [
                 new MCircleBody(650, 100, 20, { restitution: 1, friction: 0 }),
                 new MCircleBody(650, 340, 40, { restitution: 1, friction: 0 }),
-                new MRectangleBody(650, 770, 1320, 20, { isStatic: true, friction: 0 })
+                new MRectangleBody(650, 770, 1320, 20, { isStatic: true, friction: .2 })
             ],
             toolButtons: [
                 { icon: 'add', onClickListener: () => { console.log('aa') } }
@@ -69,9 +70,13 @@ class App extends Component<any, StateTypes> {
         if (typeof this.state.selectedObj != 'object') return;
         let dupObj: Object = Object.assign({}, this.state.selectedObj);
         if (!dupObj) return {};
-        if (dupObj.hasOwnProperty('parent')) delete dupObj['parent'];
+        if (dupObj.hasOwnProperty('parent')) delete dupObj['parent'];    
 
         return dupObj;
+    }
+    setSelectedObj = (obj: Object) => {
+        console.log(obj);
+        this.setState({ selectedObj: obj });
     }
 
     componentDidMount() {
@@ -96,7 +101,7 @@ class App extends Component<any, StateTypes> {
                         </button>))
                     }
                 </div>
-                <CanvasRenderer getBodies={this.getBodies} getSelectedObj={this.getSelectedObj} timing={10} engine={engine} isPaused={this.isPaused} />
+                <CanvasRenderer getBodies={this.getBodies} getSelectedObj={this.getSelectedObj} setSelectedObj={this.setSelectedObj} timing={10} engine={engine} isPaused={this.isPaused} />
                 <div id="side-bar">
                     <div id="control-buttons-container">
                         {controlButtons.map(controlButton =>
