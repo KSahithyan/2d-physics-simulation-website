@@ -10,9 +10,9 @@ If you want to contribute to this project by coding, This list is for you.
 #### For Objects
 
 - [ ] Add `move` functionality.
-- [x] Add `click` functionality.
 - [ ] Create a way to change properties.
 
 #### Overall App
 
 - [ ] Add `add` option in menu bar.
+- [ ] Add `popup`.

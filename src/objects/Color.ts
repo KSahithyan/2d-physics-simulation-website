@@ -13,6 +13,10 @@ export class Color {
         return '#' + [this.r, this.g, this.b].map(a => a.toString(16).padStart(2,'0')).join('');
     }
 
+    /**
+     * DON'T USE
+     * @param hexCode Hexadecimal code to convert into RGB color
+     */
     fromHexCode(hexCode: string) {
         hexCode = hexCode.slice(1)
 
