@@ -1,6 +1,6 @@
 import { MBody } from "./MBody";
 import { Bodies, IBodyDefinition } from "matter-js";
-import { isInRange, distance } from "../utils";
+import { distance } from "../utils";
 const { PI } = Math
 
 export class MCircleBody extends MBody {

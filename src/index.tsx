@@ -1,4 +1,4 @@
-import { Body, Engine, World } from 'matter-js';
+import { Body, Engine, World, MouseConstraint, Mouse } from 'matter-js';
 import React, { Component } from 'react';
 import ReactDOM from "react-dom";
 import { CanvasRenderer, PropertiesContainer } from './components/index';
@@ -13,10 +13,11 @@ interface StateTypes {
     bodies: MBody[],
     isPaused: boolean,
     controlButtons: ControlButton[],
-    toolButtons: ToolButton[]
+    toolButtons: ToolButton[],
+    mouseConstraint?: MouseConstraint
 }
 
-const ICON_PATH = './src/icons/'
+const ICON_PATH = 'icons/'
 
 class App extends Component<any, StateTypes> {
     bodies: any[];
@@ -80,7 +81,9 @@ class App extends Component<any, StateTypes> {
     }
 
     componentDidMount() {
-        this.setState(state => ({ selectedObj: state.bodies[0].body }))
+        this.setState(state => ({ selectedObj: state.bodies[0].body}))
+        // TODO implement;;
+     //       mouseConstraint: MouseConstraint.create(state.engine, {mouse: Mouse.create(this.canvasRef)}) }))
         // this.setState(state => ({ selectedObj: state.engine.world }))
 
         setInterval(() => {

@@ -11,5 +11,6 @@ export abstract class MBody {
     constructor(type: 'circle' | 'rectangle') {
         this.type = type;
         this.fillColor = new Color(0,0,0);
+        Color.fromHexCode('#ffff00');
     }
 }

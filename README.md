@@ -12,6 +12,17 @@ Be sure to be bug-free, pre-tested and some improvements.
 ### Ways to contribute
 
 1. You can find some bugs and create an issue.
-2. You can write code to fix the bugs from the issues section.
+2. You can write code to fix the bugs from the issues section ([Development](#Development)).
 3. You can give feedback.
 4. You can star this repo to show your support.
+
+### Development
+
+If you want to contribute to this project by coding,
+Check this section and also [Todo.md](./TODO.md)
+
+* After you cloned this repository, run `yarn install` to install dependencies.
+* Run `yarn start` to start the development server.
+The development server will be running on http://localhost:8080/
+
+* 

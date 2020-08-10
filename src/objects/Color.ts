@@ -9,17 +9,16 @@ export class Color {
         this.b = b;
     }
 
-    toHexCode() {
-        return '#' + [this.r, this.g, this.b].map(a => a.toString(16).padStart(2,'0')).join('');
-    }
-
     /**
-     * DON'T USE
      * @param hexCode Hexadecimal code to convert into RGB color
      */
-    fromHexCode(hexCode: string) {
+    static fromHexCode(hexCode: string) {
         hexCode = hexCode.slice(1)
 
         console.log(hexCode.match(/(\d{2})/));
+    }
+
+    toHexCode() {
+        return '#' + [this.r, this.g, this.b].map(a => a.toString(16).padStart(2,'0')).join('');
     }
 }
