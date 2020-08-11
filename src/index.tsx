@@ -1,5 +1,5 @@
-import { Body, Engine, World, MouseConstraint, Mouse } from 'matter-js';
-import React, { Component } from 'react';
+import { Body, Engine, World } from 'matter-js';
+import React, { Component, createRef } from 'react';
 import ReactDOM from "react-dom";
 import { CanvasRenderer, PropertiesContainer } from './components/index';
 import { MBody, MCircleBody, MRectangleBody } from "./objects/index";
@@ -13,8 +13,7 @@ interface StateTypes {
     bodies: MBody[],
     isPaused: boolean,
     controlButtons: ControlButton[],
-    toolButtons: ToolButton[],
-    mouseConstraint?: MouseConstraint
+    toolButtons: ToolButton[]
 }
 
 const ICON_PATH = 'icons/'
@@ -22,6 +21,7 @@ const ICON_PATH = 'icons/'
 class App extends Component<any, StateTypes> {
     bodies: any[];
     renderer: any;
+    isLive: boolean;
     constructor(props: any) {
         super(props);
         this.runEngine = this.runEngine.bind(this);
@@ -51,13 +51,11 @@ class App extends Component<any, StateTypes> {
         for (let body of this.state.bodies) {
             World.add(this.state.engine.world, body.body);
         }
-        console.log(this.state.engine.world);
 
         Body.setVelocity(this.state.bodies[1].body, { x: 0, y: -10 })
     }
 
     runEngine() {
-        console.log('s');
         this.setState(state => ({ isPaused: false }));
     }
 
@@ -76,22 +74,26 @@ class App extends Component<any, StateTypes> {
         return dupObj;
     }
     setSelectedObj = (obj: Object) => {
-        console.log(obj);
+        // console.log(obj);
         this.setState({ selectedObj: obj });
     }
 
     componentDidMount() {
-        this.setState(state => ({ selectedObj: state.bodies[0].body}))
-        // TODO implement;;
-     //       mouseConstraint: MouseConstraint.create(state.engine, {mouse: Mouse.create(this.canvasRef)}) }))
+        this.isLive = true;
+        this.setState(state => ({ selectedObj: state.bodies[0].body }));
         // this.setState(state => ({ selectedObj: state.engine.world }))
 
         setInterval(() => {
-            // this.setState(state => ({ isPaused: state.isPaused }))
-            this.forceUpdate();
+            if (this.isLive) {
+                this.forceUpdate();
+            }
         }, 10)
     }
 
+    componentWillUnmount() {
+        this.isLive = false;
+    }
+    
     render() {
         let { engine, controlButtons, toolButtons, selectedObj } = this.state;
         if (selectedObj == undefined) selectedObj = {}

@@ -19,6 +19,13 @@ export class MCircleBody extends MBody {
         ctx.arc(x,y,this.r,0,2 * PI);
         ctx.fill();
         ctx.closePath();
+
+        ctx.beginPath();
+        ctx.moveTo(x,y);
+        ctx.lineTo(x + this.r, y);
+        ctx.strokeStyle = "#FF0000"
+        ctx.stroke();
+        ctx.closePath();
     }
 
     isClickedOn(x,y): boolean {

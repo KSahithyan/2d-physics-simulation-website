@@ -26,7 +26,6 @@ interface PropTypes {
 export class PropertiesContainer extends React.Component<PropTypes> {
     constructor(props: PropTypes) {
         super(props);
-        console.log(props);
     }
 
     // update properties while simulation running
