@@ -18,6 +18,7 @@
 #tools-button-container {
     @extend .flex--column;
     // background-color: blue;
+    padding-top: 4px;
     height: 100%;
 
     button {
@@ -25,6 +26,7 @@
         background-color: transparent;
         min-height: 40px;
         justify-content: center;
+        align-items: center;
         width: 100%;
         height: fit-content;
         transition: .2s;
@@ -68,8 +70,9 @@
 
 #control-buttons-container {
     @extend .flex;
-    gap: 4px;
+    column-gap: 4px;
     height: fit-content;
+    // background-color: red;
     justify-content: center;
 
     .control-button {

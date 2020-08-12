@@ -1,3 +1,12 @@
 .icon {
-    width: 1.8rem;
+    display: block;
+    width: 95%;
+    height: 1.6rem !important;
+    // background-color: red;
+}
+
+
+.properties-group-inner {
+    @extend .flex;
+    gap: 10px;
 }

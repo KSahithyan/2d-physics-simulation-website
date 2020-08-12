@@ -50,8 +50,11 @@ export class CanvasRenderer extends Component<PropTypes> {
             if (r) {
                 this.canvasMouse.bodyClicked = b;
                 this.props.setSelectedObj(body.body);
+                return;
             }
         }
+        this.canvasMouse.bodyClicked = this.props.engine.world
+        this.props.setSelectedObj(this.props.engine.world);
     }
 
     componentDidMount() {

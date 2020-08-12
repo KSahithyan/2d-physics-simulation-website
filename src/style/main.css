@@ -1,4 +1,4 @@
-.flex, .flex--column, #tools-button-container, #tools-button-container button, #control-buttons-container, #control-buttons-container .control-button {
+.flex, .flex--column, #tools-button-container, .properties-group-inner, #tools-button-container button, #control-buttons-container, #control-buttons-container .control-button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -17,7 +17,13 @@
 }
 
 .icon {
-  width: 1.8rem;
+  display: block;
+  width: 95%;
+  height: 1.6rem !important;
+}
+
+.properties-group-inner {
+  gap: 10px;
 }
 
 .container {
@@ -38,6 +44,7 @@
 }
 
 #tools-button-container {
+  padding-top: 4px;
   height: 100%;
 }
 
@@ -47,6 +54,9 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 100%;
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -97,7 +107,8 @@
 }
 
 #control-buttons-container {
-  gap: 4px;
+  -webkit-column-gap: 4px;
+          column-gap: 4px;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;

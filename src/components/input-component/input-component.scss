@@ -1,8 +1,20 @@
 @import './../../style/abstracts/atomic-styles';
 
 .input-container {
-    @extend .flex--column;
+    @extend .flex;
+    flex-direction: column;
     margin-bottom: 12px;
+}
+
+.input-container.small {
+    @extend .flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    input {
+        width: 100px;
+    }
 }
 
 label {

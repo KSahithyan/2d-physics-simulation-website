@@ -40,7 +40,7 @@ class App extends Component<any, StateTypes> {
                 new MRectangleBody(650, 770, 1320, 20, { isStatic: true, friction: .2 })
             ],
             toolButtons: [
-                { icon: 'add', onClickListener: () => { console.log('aa') } }
+                { icon: 'shapes', onClickListener: () => { console.log('aa') } }
             ],
             controlButtons: [
                 { icon: 'play', onClickListener: this.runEngine },
@@ -48,21 +48,13 @@ class App extends Component<any, StateTypes> {
             ]
         }
 
-        for (let body of this.state.bodies) {
-            World.add(this.state.engine.world, body.body);
-        }
+        World.add(this.state.engine.world, this.state.bodies.map(body => body.body));
 
         Body.setVelocity(this.state.bodies[1].body, { x: 0, y: -10 })
     }
 
-    runEngine() {
-        this.setState(state => ({ isPaused: false }));
-    }
-
-    pauseEngine() {
-        this.setState(state => ({ isPaused: true }))
-    }
-
+    runEngine = () => { this.setState(state => ({ isPaused: false })) }
+    pauseEngine = () => { this.setState(state => ({ isPaused: true })) }
     isPaused = () => this.state.isPaused
     getBodies = () => this.state.bodies
     getSelectedObj = () => {

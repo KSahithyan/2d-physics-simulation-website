@@ -11,7 +11,7 @@ export class MMouse {
      * Indicates if the mouse is pressed
      */
     isMouseDown: boolean;
-    bodyClicked: MBody;
+    bodyClicked: MBody | any;
 
     /**
      * Create a MMouse Object
