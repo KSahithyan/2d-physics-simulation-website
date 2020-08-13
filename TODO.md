@@ -17,6 +17,7 @@ If you want to contribute to this project by coding, This list is for you.
 - [ ] Add `shapes-add` option in menu bar.
 - [ ] Add `move-tool` to menu bar.
 - [ ] Improve performance on `objects:move`.
+- [ ] Finish `popup-component`.
 
 #### Code Organization
 

@@ -1,7 +1,7 @@
 import { Body, Engine, World } from 'matter-js';
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from "react-dom";
-import { CanvasRenderer, PropertiesContainer } from './components/index';
+import { CanvasRenderer, PropertiesContainer, PopupComponent, PopContent, Trigger } from './components/index';
 import { MBody, MCircleBody, MRectangleBody } from "./objects/index";
 import { ControlButton, ToolButton } from "./types";
 
@@ -16,7 +16,7 @@ interface StateTypes {
     toolButtons: ToolButton[]
 }
 
-const ICON_PATH = 'icons/'
+const getIconPath = (iconName: string): string => `icons/${iconName}.svg`;
 
 class App extends Component<any, StateTypes> {
     bodies: any[];
@@ -71,6 +71,8 @@ class App extends Component<any, StateTypes> {
     }
 
     componentDidMount() {
+        let screenWidth = document.body.getClientRects()[0].width;
+        if (screenWidth < 1000) alert("This website is still not designed for small screens. Check back again later");
         this.isLive = true;
         this.setState(state => ({ selectedObj: state.bodies[0].body }));
         // this.setState(state => ({ selectedObj: state.engine.world }))
@@ -92,18 +94,26 @@ class App extends Component<any, StateTypes> {
         return (
             <div className="container">
                 <div id="tools-button-container">
-                    {toolButtons.map(toolButton =>
+                    {toolButtons.map(toolButton => {
+                        return (<PopupComponent key={toolButton.icon}>
+                            <Trigger>
+                                <img src={getIconPath(toolButton.icon)} className="icon" />
+                            </Trigger>
+                            <PopContent>s</PopContent>
+                        </PopupComponent>)
+                    })}
+                    {/* {toolButtons.map(toolButton =>
                         (<button className="control-button" onClick={toolButton.onClickListener} key={toolButton.icon}>
                             <img src={`${ICON_PATH + toolButton.icon}.svg`} className="icon" />
                         </button>))
-                    }
+                     } */}
                 </div>
                 <CanvasRenderer getBodies={this.getBodies} getSelectedObj={this.getSelectedObj} setSelectedObj={this.setSelectedObj} timing={10} engine={engine} isPaused={this.isPaused} />
                 <div id="side-bar">
                     <div id="control-buttons-container">
                         {controlButtons.map(controlButton =>
                             (<button className="control-button" onClick={controlButton.onClickListener} key={controlButton.icon}>
-                                <img src={`${ICON_PATH + controlButton.icon}.svg`} className="icon" />
+                                <img src={getIconPath(controlButton.icon)} className="icon" />
                             </button>))
                         }
                     </div>
