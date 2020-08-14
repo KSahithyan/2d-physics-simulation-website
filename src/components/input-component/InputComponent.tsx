@@ -7,12 +7,14 @@ interface PropTypes {
     id?: string,
     label?: string,
     value: string | number,
+    size?: 'small' | 'normal',
     onChangeListener: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const InputComponent = (props: PropTypes) => {
     let id = props.id || props.label;
     let value = props.value;
+    let size = props.size || 'normal';
     if (typeof props.value == 'number') {
         value = props.value.toFixed(3);
         if (Math.floor(props.value) == props.value) {
@@ -20,7 +22,7 @@ export const InputComponent = (props: PropTypes) => {
         }
     }
     return (
-        <div className="input-container">
+        <div className={`input-container ${size}`}>
             {props.label ? <label htmlFor={id}>{props.label}</label> : null}
             <input
                 type={props.type || 'text'}

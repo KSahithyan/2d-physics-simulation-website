@@ -13,9 +13,8 @@ export class Color {
      * @param hexCode Hexadecimal code to convert into RGB color
      */
     static fromHexCode(hexCode: string) {
-        hexCode = hexCode.slice(1)
-
-        console.log(hexCode.match(/(\d{2})/));
+        let RGB = (hexCode.slice(1)).match(/(\w{2})/g).map(v => parseInt(v, 16));
+        return new Color(...RGB)
     }
 
     toHexCode() {

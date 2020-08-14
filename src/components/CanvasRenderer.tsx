@@ -1,7 +1,6 @@
 import { Engine } from 'matter-js';
 import React, { Component, createRef } from 'react';
-import { MBody, MRectangleBody } from './../objects/index';
-import { Point } from '../types';
+import { MBody, MMouse } from './../objects/index';
 
 interface PropTypes {
     timing: number,
@@ -13,21 +12,19 @@ interface PropTypes {
 }
 
 export class CanvasRenderer extends Component<PropTypes> {
-    private canvasRef = createRef<HTMLCanvasElement>()
+    canvasRef = createRef<HTMLCanvasElement>()
     private parentRef = createRef<HTMLDivElement>()
     ctx: CanvasRenderingContext2D;
-    mouse: Point = {
-        x: 0,
-        y: 0
-    };
+    canvasMouse: MMouse;
 
     constructor(props: PropTypes) {
         super(props);
         this.onClick = this.onClick.bind(this);
-        console.log(this.props);
+        // console.log(this.props);
     }
     
     renderCanvas() {
+        // console.log(this.canvasMouse);
         if (!this.props.isPaused()) {
             Engine.update(this.props.engine);
         }
@@ -45,30 +42,40 @@ export class CanvasRenderer extends Component<PropTypes> {
         // store mouse position;
         // @ts-ignore
         let rect = event.target.getBoundingClientRect();
-        this.mouse = {
-            x: event.clientX - rect.left,
-            y: event.clientY - rect.top
-        }
         
         for (let body of this.props.getBodies()) {
             let b = body as MBody
-            let r = b.isClickedOn(this.mouse.x, this.mouse.y);
-
+            let r = b.isClickedOn(this.canvasMouse.position.x, this.canvasMouse.position.y);
+            
             if (r) {
+                this.canvasMouse.bodyClicked = b;
                 this.props.setSelectedObj(body.body);
+                return;
             }
         }
+        this.canvasMouse.bodyClicked = this.props.engine.world
+        this.props.setSelectedObj(this.props.engine.world);
     }
-    
+
     componentDidMount() {
-        this.canvasRef.current.addEventListener('click', this.onClick);
+        // this.canvasRef.current.addEventListener('click', this.onClick);
+        // this.canvasRef.current.addEventListener('mousedown', this.OnMouseDown);
+        // this.canvasRef.current.addEventListener('mousemove', this.onMouseMove);
+        // this.canvasRef.current.addEventListener('mouseup', this.OnMouseUp);
         this.ctx = this.canvasRef.current.getContext('2d');
+        this.canvasMouse = new MMouse(this.canvasRef.current);
+        this.canvasMouse.onMouseDown = this.onClick;
+        // this.canvasMouse = Mouse.create(this.canvasRef.current);
+        // this.canvasMouse.pixelRatio = 1;
+        // let mouseConstraint = MouseConstraint.create(this.props.engine, { mouse: this.canvasMouse})
+        // World.add(this.props.engine.world, mouseConstraint);
+        // this.forceUpdate();
     }
     
     componentDidUpdate() {
         this.renderCanvas()
     }
-    
+
     render() {
         return (
             <div ref={this.parentRef} className="render-canvas-container">

@@ -13,15 +13,15 @@ interface StateTypes {
     bodies: MBody[],
     isPaused: boolean,
     controlButtons: ControlButton[],
-    toolButtons: ToolButton[],
-    mouseConstraint?: MouseConstraint
+    toolButtons: ToolButton[]
 }
 
-const ICON_PATH = 'icons/'
+const getIconPath = (iconName: string): string => `icons/${iconName}.svg`;
 
 class App extends Component<any, StateTypes> {
     bodies: any[];
     renderer: any;
+    isLive: boolean;
     constructor(props: any) {
         super(props);
         this.runEngine = this.runEngine.bind(this);
@@ -52,23 +52,13 @@ class App extends Component<any, StateTypes> {
             ]
         }
 
-        for (let body of this.state.bodies) {
-            World.add(this.state.engine.world, body.body);
-        }
-        console.log(this.state.engine.world);
+        World.add(this.state.engine.world, this.state.bodies.map(body => body.body));
 
         Body.setVelocity(this.state.bodies[1].body, { x: 0, y: -10 })
     }
 
-    runEngine() {
-        console.log('s');
-        this.setState(state => ({ isPaused: false }));
-    }
-
-    pauseEngine() {
-        this.setState(state => ({ isPaused: true }))
-    }
-
+    runEngine = () => { this.setState(state => ({ isPaused: false })) }
+    pauseEngine = () => { this.setState(state => ({ isPaused: true })) }
     isPaused = () => this.state.isPaused
     getBodies = () => this.state.bodies
     getSelectedObj = () => {
@@ -80,22 +70,28 @@ class App extends Component<any, StateTypes> {
         return dupObj;
     }
     setSelectedObj = (obj: Object) => {
-        console.log(obj);
+        // console.log(obj);
         this.setState({ selectedObj: obj });
     }
 
     componentDidMount() {
-        this.setState(state => ({ selectedObj: state.bodies[0].body}))
-        // TODO implement;;
-     //       mouseConstraint: MouseConstraint.create(state.engine, {mouse: Mouse.create(this.canvasRef)}) }))
+        let screenWidth = document.body.getClientRects()[0].width;
+        if (screenWidth < 1000) alert("This website is still not designed for small screens. Check back again later");
+        this.isLive = true;
+        this.setState(state => ({ selectedObj: state.bodies[0].body }));
         // this.setState(state => ({ selectedObj: state.engine.world }))
 
         setInterval(() => {
-            // this.setState(state => ({ isPaused: state.isPaused }))
-            this.forceUpdate();
+            if (this.isLive) {
+                this.forceUpdate();
+            }
         }, 10)
     }
 
+    componentWillUnmount() {
+        this.isLive = false;
+    }
+    
     render() {
         let { engine, controlButtons, toolButtons, selectedObj } = this.state;
         if (selectedObj == undefined) selectedObj = {}
@@ -128,7 +124,7 @@ class App extends Component<any, StateTypes> {
                     <div id="control-buttons-container">
                         {controlButtons.map(controlButton =>
                             (<button className="control-button" onClick={controlButton.onClickListener} key={controlButton.icon}>
-                                <img src={`${ICON_PATH + controlButton.icon}.svg`} className="icon" />
+                                <img src={getIconPath(controlButton.icon)} className="icon" />
                             </button>))
                         }
                     </div>

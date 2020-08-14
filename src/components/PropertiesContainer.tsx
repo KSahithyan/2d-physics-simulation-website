@@ -11,8 +11,8 @@ const PropertiesGroup = (props: PropertiesGroupPropTypes) => {
     return (
         <div>
             <h4>{title}</h4>
-            <div>
-                {props.entry[1].map(a => <InputComponent key={a[0]} label={a[0]} value={a[1]} onChangeListener={this.getChange} />)}
+            <div className="properties-group-inner">
+                {props.entry[1].map(a => <InputComponent size="small" key={a[0]} label={capitalize(a[0])} value={a[1]} onChangeListener={this.getChange} />)}
             </div>
         </div>
     )
@@ -26,7 +26,6 @@ interface PropTypes {
 export class PropertiesContainer extends React.Component<PropTypes> {
     constructor(props: PropTypes) {
         super(props);
-        console.log(props);
     }
 
     // update properties while simulation running

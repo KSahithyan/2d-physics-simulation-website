@@ -1,10 +1,10 @@
-.flex, .flex--column, .input-container {
+.flex, .flex--column, .input-container, .input-container.small {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.flex--column, .input-container {
+.flex--column {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -12,7 +12,26 @@
 }
 
 .input-container {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   margin-bottom: 12px;
+}
+
+.input-container.small {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+
+.input-container.small input {
+  width: 100px;
 }
 
 label {
