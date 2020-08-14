@@ -5,6 +5,9 @@ export class Trigger extends Component {
 
     render() {
         // console.log('trigger', props);
-        return <button>HHI</button>
+        return (
+        <button>
+            {this.props.children}
+        </button>)
     }
 }
