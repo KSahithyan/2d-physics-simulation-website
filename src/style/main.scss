@@ -20,19 +20,19 @@
     // background-color: blue;
     height: 100%;
 
-    button {
-        @extend .flex, .button;
-        background-color: transparent;
-        min-height: 40px;
-        justify-content: center;
-        width: 100%;
-        height: fit-content;
-        transition: .2s;
+    // button {
+    //     @extend .flex, .button;
+    //     background-color: transparent;
+    //     min-height: 40px;
+    //     justify-content: center;
+    //     width: 100%;
+    //     height: fit-content;
+    //     transition: .2s;
 
-        &:hover {
-            background-color: #00000034;
-        }
-    }
+    //     &:hover {
+    //         background-color: #00000034;
+    //     }
+    // }
 }
 
 .render-canvas-container {

@@ -15,4 +15,4 @@ If you want to contribute to this project by coding, This list is for you.
 #### Overall App
 
 - [ ] Add `add` option in menu bar.
-- [ ] Add `popup`.
+- [ ] Finish `popup-component`.

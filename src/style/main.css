@@ -1,4 +1,4 @@
-.flex, .flex--column, #tools-button-container, #tools-button-container button, #control-buttons-container, #control-buttons-container .control-button {
+.flex, .flex--column, #tools-button-container, #control-buttons-container, #control-buttons-container .control-button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -11,7 +11,7 @@
           flex-direction: column;
 }
 
-.button, #tools-button-container button, #control-buttons-container .control-button {
+.button, #control-buttons-container .control-button {
   cursor: pointer;
   border: none;
 }
@@ -39,24 +39,6 @@
 
 #tools-button-container {
   height: 100%;
-}
-
-#tools-button-container button {
-  background-color: transparent;
-  min-height: 40px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  width: 100%;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  -webkit-transition: .2s;
-  transition: .2s;
-}
-
-#tools-button-container button:hover {
-  background-color: #00000034;
 }
 
 .render-canvas-container {
