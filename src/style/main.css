@@ -11,7 +11,7 @@
           flex-direction: column;
 }
 
-.button, #tools-button-container button, #control-buttons-container .control-button {
+.button, #control-buttons-container .control-button {
   cursor: pointer;
   border: none;
 }

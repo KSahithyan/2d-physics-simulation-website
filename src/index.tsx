@@ -1,7 +1,7 @@
-import { Body, Engine, World } from 'matter-js';
+import { Body, Engine, World, MouseConstraint } from 'matter-js';
 import React, { Component } from 'react';
 import ReactDOM from "react-dom";
-import { CanvasRenderer, PropertiesContainer, PopupComponent, PopContent, Trigger } from './components/index';
+import { CanvasRenderer, PropertiesContainer, PopContent, Trigger, PopupComponent } from './components/index';
 import { MBody, MCircleBody, MRectangleBody } from "./objects/index";
 import { ControlButton, ToolButton } from "./types";
 
@@ -40,7 +40,11 @@ class App extends Component<any, StateTypes> {
                 new MRectangleBody(650, 770, 1320, 20, { isStatic: true, friction: .2 })
             ],
             toolButtons: [
-                { icon: 'shapes', onClickListener: () => { console.log('aa') } }
+                { icon: 'shapes', popOptions: [
+                    { label: "Rectangle", onClickListener: () => {
+                        console.log('rectable');
+                    } }
+                ] }
             ],
             controlButtons: [
                 { icon: 'play', onClickListener: this.runEngine },
@@ -95,18 +99,25 @@ class App extends Component<any, StateTypes> {
             <div className="container">
                 <div id="tools-button-container">
                     {toolButtons.map(toolButton => {
-                        return (<PopupComponent key={toolButton.icon}>
+                        return (
+                        <PopupComponent>
                             <Trigger>
-                                <img src={getIconPath(toolButton.icon)} className="icon" />
+                                <img src={`${ICON_PATH + toolButton.icon}.svg`} className="icon" />
                             </Trigger>
-                            <PopContent>s</PopContent>
+                            <PopContent>
+                                {toolButton.popOptions.map(value => {
+                                    return (
+                                        <div>{value.label}</div>
+                                    )
+                                })}
+                            </PopContent>
                         </PopupComponent>)
                     })}
                     {/* {toolButtons.map(toolButton =>
                         (<button className="control-button" onClick={toolButton.onClickListener} key={toolButton.icon}>
                             <img src={`${ICON_PATH + toolButton.icon}.svg`} className="icon" />
                         </button>))
-                     } */}
+                    } */}
                 </div>
                 <CanvasRenderer getBodies={this.getBodies} getSelectedObj={this.getSelectedObj} setSelectedObj={this.setSelectedObj} timing={10} engine={engine} isPaused={this.isPaused} />
                 <div id="side-bar">
