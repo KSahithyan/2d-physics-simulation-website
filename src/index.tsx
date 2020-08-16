@@ -102,7 +102,7 @@ class App extends Component<any, StateTypes> {
                         return (
                         <PopupComponent>
                             <Trigger>
-                                <img src={`${ICON_PATH + toolButton.icon}.svg`} className="icon" />
+                                <img src={getIconPath(toolButton.icon)} className="icon" />
                             </Trigger>
                             <PopContent>
                                 {toolButton.popOptions.map(value => {

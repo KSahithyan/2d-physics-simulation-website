@@ -10,7 +10,7 @@ I started this project because I wanted to check if my answers were correct (the
 
 For example,
 
-I found out *Interactive Physics*. But it is not free.
+I found out *Interactive Physics*. But it is not free.   
 I found out *Steps*. But it didn't even allow me to change the mass of an object.
 
 So I thought, why don't I make a physics simulation app that best suits me.

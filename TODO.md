@@ -25,5 +25,10 @@ Or if you find something has to be done, just edit this file and make a PR.
 
 #### Code Organization
 
+<<<<<<< HEAD
 - [ ] Find a suitable keyword to append to the name of every object types.
 - [ ] Write JSDoc comments for maximum code.
+=======
+- [ ] Find a suitable keyword to append to all objects
+- [ ] Write JSDoc comments for maximum code
+>>>>>>> 90d94a9ed79c1e9a56695b26b685e924ecd6cc4a
