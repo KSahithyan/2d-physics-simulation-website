@@ -1,6 +1,8 @@
 import React from 'react';
-import { InputComponent } from './../components/index'
-import { capitalize } from './../utils';
+// import { InputComponent } from '../index'
+import { capitalize } from '../../utils';
+import { Input } from 'antd';
+const css = require('./component.css');
 
 interface PropertiesGroupPropTypes {
     entry: [string, any[]]
@@ -12,7 +14,8 @@ const PropertiesGroup = (props: PropertiesGroupPropTypes) => {
         <div>
             <h4>{title}</h4>
             <div className="properties-group-inner">
-                {props.entry[1].map(a => <InputComponent size="small" key={a[0]} label={capitalize(a[0])} value={a[1]} onChangeListener={this.getChange} />)}
+                {props.entry[1].map(a => <Input addonBefore={capitalize(a[0])} value={a[1]}></Input>)}
+                {/* {props.entry[1].map(a => <InputComponent size="small" key={a[0]} label={capitalize(a[0])} value={a[1]} onChangeListener={this.getChange} />)} */}
             </div>
         </div>
     )
@@ -64,8 +67,18 @@ export class PropertiesContainer extends React.Component<PropTypes> {
                 return (
                     entry[1] instanceof Array ?
                     <PropertiesGroup key={entry[0]} entry={entry} /> :
-                    <InputComponent key={entry[0]} label={capitalize(entry[0])} value={entry[1]} onChangeListener={this.getChange} />)
+                    <div className="input-container">
+                        <Input addonBefore={capitalize(entry[0])} value={entry[1]}></Input>
+                    </div>
+                    // <InputComponent key={entry[0]} label={capitalize(entry[0])} value={entry[1]} onChangeListener={this.getChange} />
+                    )
                 })}
+                {/* {properties.map(entry => {
+                return (
+                    entry[1] instanceof Array ?
+                    <PropertiesGroup key={entry[0]} entry={entry} /> :
+                    <InputComponent key={entry[0]} label={capitalize(entry[0])} value={entry[1]} onChangeListener={this.getChange} />)
+                })} */}
             </div>
         )
     }

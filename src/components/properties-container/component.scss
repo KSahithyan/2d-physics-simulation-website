@@ -1,0 +1,14 @@
+@import './../../style/abstracts/i';
+
+.input-container {
+    @extend .flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.properties-group-inner {
+    @extend .flex;
+    gap: 10px;
+    // flex-wrap: wrap;
+    // background-color: red !important;
+}

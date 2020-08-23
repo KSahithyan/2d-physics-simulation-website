@@ -19,10 +19,10 @@ export interface ToolButton {
     /**
      * Options to show in the popup
      */
-    popOptions: PopOptions[]
+    popOptions: PopOption[]
 }
 
-export interface PopOptions {
+export interface PopOption {
     /**
      * Text to show
      */
@@ -35,6 +35,12 @@ export interface PopOptions {
 
 // RENDER
 export interface Point {
+    /**
+     * x value of the point
+     */
     x: number,
+    /**
+     * y value of the point
+     */
     y: number
 }

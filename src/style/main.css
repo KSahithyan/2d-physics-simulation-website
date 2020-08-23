@@ -1,4 +1,4 @@
-.flex, .flex--column, #tools-button-container, .properties-group-inner, #tools-button-container button, #control-buttons-container, #control-buttons-container .control-button {
+.flex, .flex--column, #tools-button-container, #control-buttons-container, #control-buttons-container .control-button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -20,10 +20,7 @@
   display: block;
   width: 95%;
   height: 1.6rem !important;
-}
-
-.properties-group-inner {
-  gap: 10px;
+  background-color: red;
 }
 
 .container {
@@ -48,27 +45,6 @@
   height: 100%;
 }
 
-#tools-button-container button {
-  background-color: transparent;
-  min-height: 40px;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 100%;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  -webkit-transition: .2s;
-  transition: .2s;
-}
-
-#tools-button-container button:hover {
-  background-color: #00000034;
-}
-
 .render-canvas-container {
   margin: auto;
 }
@@ -85,15 +61,14 @@
 #side-bar {
   width: 360px;
   padding: 8px 12px 8px 16px;
-  -ms-grid-column: 3;
-  grid-column: 3;
   height: 100vh;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 100%;
       grid-template-columns: 100%;
-  -ms-grid-rows: 40px auto;
-      grid-template-rows: 40px auto;
+  gap: 12px;
+  -ms-grid-rows: 30px 1.1rem auto;
+      grid-template-rows: 30px 1.1rem auto;
 }
 
 .section-heading {
@@ -133,9 +108,10 @@
 }
 
 #properties {
-  overflow: auto;
+  margin-top: 12px;
   scroll-behavior: smooth;
   scrollbar-width: none;
+  height: auto;
 }
 
 #properties div {

@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import ReactDOM from "react-dom";
 import { CanvasRenderer, PropertiesContainer, PopContent, Trigger, PopupComponent } from './components/index';
 import { MBody, MCircleBody, MRectangleBody } from "./objects/index";
-import { ControlButton, ToolButton } from "./types";
+import { ControlButton, ToolButton, PopOption } from "./types";
+import { Popover, Button } from 'antd';
 
 const css = require('./style/main.css');
 
@@ -40,11 +41,15 @@ class App extends Component<any, StateTypes> {
                 new MRectangleBody(650, 770, 1320, 20, { isStatic: true, friction: .2 })
             ],
             toolButtons: [
-                { icon: 'shapes', popOptions: [
-                    { label: "Rectangle", onClickListener: () => {
-                        console.log('rectable');
-                    } }
-                ] }
+                {
+                    icon: 'shapes', popOptions: [
+                        {
+                            label: "Rectangle", onClickListener: () => {
+                                console.log('// testing Rectangle label press, rectable');
+                            }
+                        }
+                    ]
+                }
             ],
             controlButtons: [
                 { icon: 'play', onClickListener: this.runEngine },
@@ -57,15 +62,15 @@ class App extends Component<any, StateTypes> {
         Body.setVelocity(this.state.bodies[1].body, { x: 0, y: -10 })
     }
 
-    runEngine = () => { this.setState(state => ({ isPaused: false })) }
-    pauseEngine = () => { this.setState(state => ({ isPaused: true })) }
+    runEngine = () => { this.setState({ isPaused: false }) }
+    pauseEngine = () => { this.setState({ isPaused: true }) }
     isPaused = () => this.state.isPaused
     getBodies = () => this.state.bodies
     getSelectedObj = () => {
         if (typeof this.state.selectedObj != 'object') return;
         let dupObj: Object = Object.assign({}, this.state.selectedObj);
         if (!dupObj) return {};
-        if (dupObj.hasOwnProperty('parent')) delete dupObj['parent'];    
+        if (dupObj.hasOwnProperty('parent')) delete dupObj['parent'];
 
         return dupObj;
     }
@@ -78,8 +83,8 @@ class App extends Component<any, StateTypes> {
         let screenWidth = document.body.getClientRects()[0].width;
         if (screenWidth < 1000) alert("This website is still not designed for small screens. Check back again later");
         this.isLive = true;
-        this.setState(state => ({ selectedObj: state.bodies[0].body }));
-        // this.setState(state => ({ selectedObj: state.engine.world }))
+        // this.setState(state => ({ selectedObj: state.bodies[0].body }));
+        this.setState(state => ({ selectedObj: state.engine.world }))
 
         setInterval(() => {
             if (this.isLive) {
@@ -91,13 +96,36 @@ class App extends Component<any, StateTypes> {
     componentWillUnmount() {
         this.isLive = false;
     }
-    
+
+    /**
+     * Generate Popup Content for Popover's content prop
+     */
+    generateContent(contentData: PopOption[]) {
+        return contentData.map(popItem => {
+            return (
+                <Button onClick={popItem.onClickListener}>
+                    {popItem.label}
+                </Button>
+            )
+        })        
+    }
+
     render() {
         let { engine, controlButtons, toolButtons, selectedObj } = this.state;
         if (selectedObj == undefined) selectedObj = {}
         return (
             <div className="container">
                 <div id="tools-button-container">
+                    {toolButtons.map(toolButton => (
+                        <Popover content={this.generateContent(toolButton.popOptions)} trigger="hover">
+                            <Button>
+                                Add
+                                {/* <img src={getIconPath(toolButton.icon)} className="icon" /> */}
+                            </Button>
+                        </Popover>
+                    ))}
+                </div>
+                {/* <div id="tools-button-container">
                     {toolButtons.map(toolButton => {
                         return (
                         <PopupComponent>
@@ -113,12 +141,7 @@ class App extends Component<any, StateTypes> {
                             </PopContent>
                         </PopupComponent>)
                     })}
-                    {/* {toolButtons.map(toolButton =>
-                        (<button className="control-button" onClick={toolButton.onClickListener} key={toolButton.icon}>
-                            <img src={`${ICON_PATH + toolButton.icon}.svg`} className="icon" />
-                        </button>))
-                    } */}
-                </div>
+                </div> */}
                 <CanvasRenderer getBodies={this.getBodies} getSelectedObj={this.getSelectedObj} setSelectedObj={this.setSelectedObj} timing={10} engine={engine} isPaused={this.isPaused} />
                 <div id="side-bar">
                     <div id="control-buttons-container">

@@ -11,7 +11,11 @@ interface PropTypes {
     onChangeListener: (event: ChangeEvent<HTMLInputElement>) => void
 }
 
-export const InputComponent = (props: PropTypes) => {
+/**
+ * @deprecated
+ * Will be omitted in near future
+ */
+const InputComponent = (props: PropTypes) => {
     let id = props.id || props.label;
     let value = props.value;
     let size = props.size || 'normal';

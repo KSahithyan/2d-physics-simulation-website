@@ -50,13 +50,13 @@
 #side-bar {
     width: 360px;
     padding: 8px 12px 8px 16px;
-    grid-column: 3;
     height: 100vh;
     // background-color: blue;
     // overflow: auto;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 40px auto;
+    gap: 12px;
+    grid-template-rows: 30px 1.1rem auto;
 }
 
 .section-heading {
@@ -88,10 +88,12 @@
 }
 
 #properties {
-    overflow: auto;
+    // overflow: auto;
+    margin-top: 12px;
     scroll-behavior: smooth;
     scrollbar-width: none;
-    // height: auto;
+    height: auto;
+    // background-color: red;
     
     div {
         height: fit-content;
