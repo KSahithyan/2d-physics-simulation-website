@@ -1,7 +1,7 @@
 import { Body, Engine, World, MouseConstraint } from 'matter-js';
 import React, { Component } from 'react';
 import ReactDOM from "react-dom";
-import { CanvasRenderer, PropertiesContainer, PopContent, Trigger, PopupComponent } from './components/index';
+import { CanvasRenderer, PropertiesContainer } from './components/index';
 import { MBody, MCircleBody, MRectangleBody } from "./objects/index";
 import { ControlButton, ToolButton, PopOption } from "./types";
 import { Popover, Button } from 'antd';
