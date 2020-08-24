@@ -47,6 +47,11 @@ class App extends Component<any, StateTypes> {
                             label: "Rectangle", onClickListener: () => {
                                 console.log('// testing Rectangle label press, rectable');
                             }
+                        },
+                        {
+                            label: "Circle", onClickListener: () => {
+                                console.log('// testing Circle label press');
+                            }
                         }
                     ]
                 }
@@ -97,17 +102,20 @@ class App extends Component<any, StateTypes> {
         this.isLive = false;
     }
 
+    // TODO: Migrate this into a component
     /**
      * Generate Popup Content for Popover's content prop
      */
     generateContent(contentData: PopOption[]) {
-        return contentData.map(popItem => {
+        let content = contentData.map(popItem => {
             return (
                 <Button onClick={popItem.onClickListener}>
                     {popItem.label}
                 </Button>
             )
-        })        
+        })
+
+        return <div className="flex--column">{content}</div>
     }
 
     render() {
@@ -117,7 +125,7 @@ class App extends Component<any, StateTypes> {
             <div className="container">
                 <div id="tools-button-container">
                     {toolButtons.map(toolButton => (
-                        <Popover content={this.generateContent(toolButton.popOptions)} trigger="hover">
+                        <Popover content={this.generateContent(toolButton.popOptions)} trigger="hover" placement="right">
                             <Button>
                                 Add
                                 {/* <img src={getIconPath(toolButton.icon)} className="icon" /> */}

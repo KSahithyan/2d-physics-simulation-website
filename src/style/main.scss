@@ -21,6 +21,12 @@
     padding-top: 4px;
     height: 100%;
 
+    button {
+        height: fit-content;
+        padding: 0;
+        // background-color: red;
+    }
+
     // button {
     //     @extend .flex, .button;
     //     background-color: transparent;
@@ -37,7 +43,7 @@
 }
 
 .render-canvas-container {
-    margin: auto;
+    // margin: auto;
     .render-canvas {
         max-width: 1300px;
         width: 100%;
@@ -65,6 +71,7 @@
     text-transform: uppercase;
     color: #00000034;
     height: fit-content;
+    font-weight: bold;
 }
 
 #control-buttons-container {

@@ -20,7 +20,6 @@
   display: block;
   width: 95%;
   height: 1.6rem !important;
-  background-color: red;
 }
 
 .container {
@@ -45,8 +44,11 @@
   height: 100%;
 }
 
-.render-canvas-container {
-  margin: auto;
+#tools-button-container button {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 0;
 }
 
 .render-canvas-container .render-canvas {
@@ -79,6 +81,7 @@
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  font-weight: bold;
 }
 
 #control-buttons-container {

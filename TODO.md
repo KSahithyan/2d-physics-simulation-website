@@ -3,7 +3,7 @@
 If you want to contribute to this project by coding, This list is for you.
 Or if you find something has to be done, just edit this file and make a PR.
 
-**Note** :- If you have one or two things added, your PR won't be merged. It will get rejected after, your changes have added to this file with your username. Because otherwise, there will be a lot of PRs which may create false assumptions.
+**Note** :- If you have one or two things added, your PR won't be approved. But don't worry, your changes will have added to this file with your username when it gets rejected. Because otherwise, there will be a lot of PRs which may create false assumptions.
 
 #### UI
 
@@ -11,9 +11,9 @@ Or if you find something has to be done, just edit this file and make a PR.
 - [ ] Make it mobile-responsive.
 - [ ] Start using Ant Design.
 
-#### For Objects
+#### Objects
 
-- [x] Add `move` functionality.
+- [ ] Make `matter.constraints` available.
 - [ ] Create a way to change properties.
 
 #### App
@@ -21,8 +21,7 @@ Or if you find something has to be done, just edit this file and make a PR.
 - [ ] Add `shapes-add` option in menu bar.
 - [ ] Add `move-tool` to menu bar.
 - [ ] Improve performance on `objects:move`.
-- [ ] Finish `popup-component`.
-- [ ] Create a wrapper for `Popover` from `antd`.
+- [ ] Finish `menu-bar-component`.
 
 #### Code Organization
 
